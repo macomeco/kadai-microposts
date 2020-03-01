@@ -1,6 +1,10 @@
-<div class="center jumbotron">
-    <div class="text-center">
-        <h1>Welcom to the Microposts</h1>
-        <%= link_to 'Sign Up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+<% if logged_in? %>
+    <p> ろぐいんかんりょ：<%= current_user.name %></p>
+<% else %>
+    <div class="center jumbotron">
+        <div class="text-center">
+            <h1>Welcom to the Microposts</h1>
+            <%= link_to 'Sign Up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+        </div>
     </div>
-</div>
+<%end%>
