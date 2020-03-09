@@ -22,8 +22,20 @@ class UsersController < ApplicationController
         redirect_to @user
       else
         flash.now[:danger] = "ゆーざーとうろくしっぱいしたよ"
-        render:new
+        render :new
       end
+  end
+  
+  def followings
+    @user = User.find(params[:id])
+    @followings = @user.followings.page(params[:page])
+    counts(@user)
+  end
+  
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers.page(params[:page])
+    counts(@user)
   end
   
   private
