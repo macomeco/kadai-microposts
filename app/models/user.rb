@@ -27,6 +27,10 @@ class User < ApplicationRecord
     def following?(other_user)  #ふぉろーしているかどうかの確認
         self.followings.include?(other_user)
     end
+    
+    def feed_microposts #タイムライン用のポスト取得
+        Micropost.where(user_id: self.following_ids + [self.id] ) #has many...→ふぉろーしてる人のid,自分のidのポスト取得
+    end
 #=end
 
 end
