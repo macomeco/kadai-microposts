@@ -5,9 +5,10 @@ class User < ApplicationRecord
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
     has_secure_password
-    
-#=begin
+
     has_many :microposts
+
+    #フォロー・フォロワー
     has_many :relationships
     has_many :followings, through: :relationships, source: :follow
     has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id'
@@ -31,6 +32,8 @@ class User < ApplicationRecord
     def feed_microposts #タイムライン用のポスト取得
         Micropost.where(user_id: self.following_ids + [self.id] ) #has many...→ふぉろーしてる人のid,自分のidのポスト取得
     end
-#=end
-
+    
+    has_many :favorites
+    has_many :likes , through: :favorites, source: :micropost
+    
 end
